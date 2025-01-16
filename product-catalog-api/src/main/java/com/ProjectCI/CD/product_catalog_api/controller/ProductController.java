@@ -11,6 +11,6 @@ public class ProductController {
 
 
     public String home(){
-        return "OK";
+        System.out.println("This is test");return "OK";
     }
 }

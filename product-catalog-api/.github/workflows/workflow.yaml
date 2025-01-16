@@ -10,12 +10,12 @@ jobs:
     container: 
          image: maven:3.6.3-jdk-8
     steps:
-       name: Checkout code
-       uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-       name: Build with maven
-       run: mvn clean install -DskipTests
+      - name: Build with maven
+        run: mvn clean install -DskipTests
 
-       name: Run Tests
-       run: mvn test 
+      - name: Run Tests
+        run: mvn test
 
