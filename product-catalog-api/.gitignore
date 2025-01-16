@@ -33,8 +33,10 @@ build/
 .vscode/
 
 ##compiler codes
-../product-catalog-api/.gitattributes
-../product-catalog-api/.gitignore
-../product-catalog-api/mvnw.cmd
-mvnw
+/.gitattributes
+/.gitignore
+/mvnw.cmd
+/mvnw
 ../.idea
+
+/FeaturesList.txt

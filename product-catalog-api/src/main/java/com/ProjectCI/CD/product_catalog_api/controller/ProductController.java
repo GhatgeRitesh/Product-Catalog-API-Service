@@ -9,4 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/product")
 public class ProductController {
 
+
+    public String home(){
+        return "OK";
+    }
 }
