@@ -1,0 +1,22 @@
+name: CI workflow 1
+on:
+ push:
+  branches: [ "main" ]
+ pull_request:
+  branches: [ "main" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: 
+         image: maven:3.8.3-openjdk-17
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build with maven
+        run: mvn clean install -DskipTests
+
+      - name: Run Tests
+        run: mvn test -Dspring.profiles.active.test
+
