@@ -33,10 +33,6 @@ public class Product {
     @Column(name = "createAT_TimeStamp", nullable = false , updatable = false)
     private Timestamp timestamp;
 
-    public Product(UUID id,String name , String Description, Double price){
-
-    }
-
 
 
     @Override
