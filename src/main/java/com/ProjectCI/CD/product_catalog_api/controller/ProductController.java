@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -33,13 +34,14 @@ public class ProductController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<?> FetchAllProducts(){
-            ArrayList<Product> result = productService.getAllProducts();
-            if(result.isEmpty()){ log.info("Empty Result");
-             return new ResponseEntity<>(result,HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<List> FetchAllProducts(){
+           try {
+               List<Product> result = productService.getAllProducts();
+               return new ResponseEntity<>(result, HttpStatus.OK);
+           }catch(Exception e){
+              return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
+    }
 
 
     @PutMapping("/Update/{P_ID}")

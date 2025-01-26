@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -31,19 +32,14 @@ public class ProductService {
         }
     }
 
-    public ArrayList<Product> getAllProducts(){
-        try{
+    public List<Product> getAllProducts() throws Exception{
             log.info("Fetching Product List");
-            ArrayList<Product> result=(ArrayList<Product>)productRepo.findAll();
+            List<Product> result=productRepo.findAll();
             log.info("Fetched Successfully");
             return result;
-        }catch(Exception e){
-            log.info("Exception while fetching all product "+e);
-            return new ArrayList<>(null);
-        }
     }
 
-    public Product updateProduct( UUID uuid,Product product){
+    public Product updateProduct( UUID uuid , Product product){
         try{
             log.info("retrieving Old Details");
             Product old_product = productRepo.getReferenceById(uuid);
