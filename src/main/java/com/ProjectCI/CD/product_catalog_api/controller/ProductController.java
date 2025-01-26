@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 
 @Log
@@ -22,7 +23,7 @@ public class ProductController {
 
     @PostMapping("/add")
     public ResponseEntity<?> CreateProduct(@Validated @RequestBody  Product product){
-        log.info("Adding Product To Catalog" + product.toString());
+
         if(productService.save(product)){
             return new ResponseEntity<>(HttpStatus.OK);
         }
@@ -33,17 +34,21 @@ public class ProductController {
 
     @GetMapping("/getAll")
     public ResponseEntity<?> FetchAllProducts(){
-        log.info("fetching all products");
-        try {
             ArrayList<Product> result = productService.getAllProducts();
             if(result.isEmpty()){ log.info("Empty Result");
              return new ResponseEntity<>(result,HttpStatus.NO_CONTENT);
             }
             return new ResponseEntity<>(result, HttpStatus.OK);
-        }catch(Exception e){
-            log.info("Exception while calling product service "+e);
+        }
+
+
+    @PutMapping("/Update/{P_ID}")
+    public ResponseEntity<?> updateProduct(@PathVariable("P_ID")UUID uuid , @RequestBody Product product){
+        Product result  =productService.updateProduct(uuid,product);
+        if(result == null){
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
 
