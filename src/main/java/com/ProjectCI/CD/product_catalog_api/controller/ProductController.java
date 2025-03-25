@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,6 +21,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    // Add new product
     @PostMapping("/add")
     public ResponseEntity<?> CreateProduct(@Validated @RequestBody  Product product){
 
@@ -33,6 +33,7 @@ public class ProductController {
         }
     }
 
+    // Retrive all products
     @GetMapping("/getAll")
     public ResponseEntity<List> FetchAllProducts(){
            try {
@@ -43,7 +44,15 @@ public class ProductController {
         }
     }
 
+    // Retrive single product with product_ID
+    @GetMapping("/getProduct/{P_ID}")
+    public ResponseEntity<?> getProduct(@PathVariable("P_ID") UUID uuid){
+          log.info("Received request for product ID: " + uuid);
+          Product p= productService.getProduct(uuid);
+          return new ResponseEntity<>(p,HttpStatus.OK);
+    }
 
+    // update product with product_id
     @PutMapping("/Update/{P_ID}")
     public ResponseEntity<?> updateProduct(@PathVariable("P_ID")UUID uuid , @RequestBody Product product){
         Product result  =productService.updateProduct(uuid,product);

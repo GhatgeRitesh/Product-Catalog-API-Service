@@ -1,6 +1,7 @@
 package com.ProjectCI.CD.product_catalog_api.controllerTests;
 
 import com.ProjectCI.CD.product_catalog_api.controller.ProductController;
+import com.ProjectCI.CD.product_catalog_api.exception.ResourceNotFoundException;
 import com.ProjectCI.CD.product_catalog_api.model.Product;
 import com.ProjectCI.CD.product_catalog_api.service.ProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -157,5 +159,38 @@ public class ProductControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isExpectationFailed());
+    }
+
+
+    @Test
+    public void testGetProduct_Success() throws Exception{
+        // Mock Product
+        UUID productID= UUID.randomUUID();
+        Product mockProduct= new Product(productID,"The Product Name","The Product Description",1909.0,new Timestamp(System.currentTimeMillis()));
+
+        // Mock Sercvice Behaviour to return mock product
+        Mockito.when(productService.getProduct(productID)).thenReturn(mockProduct);
+
+        // perform get request and assert the response
+        mockMvc.perform(get("/product/getProduct/{P_ID}",productID))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.uuid").value(productID.toString()))
+                .andExpect(jsonPath("$.name").value("The Product Name"))
+                .andExpect(jsonPath("$.description").value("The Product Description"))
+                .andExpect(jsonPath("$.price").value(1909.0));
+    }
+
+    @Test
+    public void testGetProduct_Failure() throws Exception{
+        // mock product
+        UUID productID= UUID.randomUUID();
+        Product mockProduct= new Product(productID,"The Product Name","The Product Description",1909.0,new Timestamp(System.currentTimeMillis()));
+
+        // Mock Service Behaviour and Expect Return Exception
+        Mockito.when(productService.getProduct(productID)).thenThrow(new ResourceNotFoundException("Product Not Found: "+ productID));
+
+        // Perform get Request and Assert the response
+        mockMvc.perform(get("/product/getProduct/{P_ID}",productID))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("Product Not Found: "+productID));
     }
 }
