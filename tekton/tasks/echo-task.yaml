@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: echo-workspace
+spec:
+  steps:
+    - name: workspace-ls
+      image: alpine:3
+      script: |
+        #!/bin/sh
+        echo "clone completed changing working directory"
+        pwd
+        echo "working directory changed"
+        ls
+        echo "workspace explored successfully"

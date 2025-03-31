@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: cd-mvn-test
+spec:
+  steps:
+    - name: run-tests
+      image: maven:3.8.7-eclipse-temurin-17
+      workingDir: /workspace/source
+      script: |
+        #!/bin/sh
+        echo "pwd :"
+        pwd
+        echo "ls workspace/source"
+        ls
+        echo "ls completed mvn test start"
+        mvn test

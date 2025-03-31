@@ -1,5 +1,6 @@
 package com.ProjectCI.CD.product_catalog_api.service;
 
+import com.ProjectCI.CD.product_catalog_api.exception.ResourceNotFoundException;
 import com.ProjectCI.CD.product_catalog_api.model.Product;
 import com.ProjectCI.CD.product_catalog_api.repository.ProductRepo;
 import lombok.extern.java.Log;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -21,11 +23,9 @@ public class ProductService {
     public boolean save(Product product){
         log.info("Adding Product To Catalog" + product.toString());
         try {
-        if(product.getTimestamp() == null){
             product.setTimestamp(new Timestamp(System.currentTimeMillis()));
-        }
-        productRepo.save(product);
-        return true;
+            productRepo.save(product);
+            return true;
         }catch(Exception e){
             log.info("Exception While Adding Product : service class " + e);
             return false;
@@ -59,5 +59,10 @@ public class ProductService {
             log.info("Exception occurred while updating product details  of product_id "+ uuid + " "+e);
             return null;
         }
+    }
+
+    public Product getProduct(UUID uuid) {
+        log.info("Fetching  product with id: "+ uuid);
+       return productRepo.findById(uuid).orElseThrow(() -> new ResourceNotFoundException("Product Not Found: "+ uuid));
     }
 }
