@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 @Log
-public class GlobalExceptiionHandler {
+public class GlobalExceptionHandler {
 
     // Handle Resource Not FOund Error
     @ExceptionHandler(ResourceNotFoundException.class)
