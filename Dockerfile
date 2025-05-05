@@ -1,9 +1,26 @@
-FROM openjdk:17-jdk-slim
+# stage 1:  Build the application
+
+FROM maven:3.9.6-eclipse-temurin-17 AS builder
 
 WORKDIR /app
 
-COPY target/product-catalog-api-0.0.1-SNAPSHOT.jar app.jar
+# copy only necessary files for caching dependencies
 
-EXPOSE 8086
+COPY pom.xml .
+COPY src ./src
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Download dependencies and build the application
+RUN mvn clean package -DskipTests && cp target/*.jar app.jar
+
+# stage 2: Create minimal image with only jar
+FROM gcr.io/distroless/java17
+
+WORKDIR /app
+
+# copy only jar file from previous build 
+COPY --from=builder /app/app.jar app.jar
+
+# Run the jar file 
+
+ENTRYPOINT ["java","-jar","app.jar"]
+
