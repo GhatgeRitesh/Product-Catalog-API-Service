@@ -29,15 +29,15 @@
 	<properties>
 		<java.version>17</java.version>
 
-			<sonar.host.url>http://localhost:9000</sonar.host.url> <!-- Update with your SonarQube server URL -->
-			<sonar.projectKey>PCAS</sonar.projectKey> <!-- Choose a unique key for your project -->
-			<sonar.projectName>PCAS</sonar.projectName> <!-- The name of your project -->
-			<sonar.projectVersion>1.0</sonar.projectVersion> <!-- Version of the project -->
-		    <sonar.login>sqp_f9c9121c75b4de8c59c85e12a8bf1c02d24db875</sonar.login>
-		    <sonar.projectKey>your-sonarcloud-project-key</sonar.projectKey>
+<!--			<sonar.host.url>http://localhost:9000</sonar.host.url> &lt;!&ndash; Update with your SonarQube server URL &ndash;&gt;-->
+<!--			<sonar.projectKey>PCAS</sonar.projectKey> &lt;!&ndash; Choose a unique key for your project &ndash;&gt;-->
+<!--			<sonar.projectName>PCAS</sonar.projectName> &lt;!&ndash; The name of your project &ndash;&gt;-->
+<!--			<sonar.projectVersion>1.0</sonar.projectVersion> &lt;!&ndash; Version of the project &ndash;&gt;-->
+<!--		    <sonar.login>sqp_f9c9121c75b4de8c59c85e12a8bf1c02d24db875</sonar.login>-->
+		    <sonar.projectKey>PCAS</sonar.projectKey>
 		    <sonar.organization>your-sonarcloud-org</sonar.organization>
 		    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		    <sonar.token>${env.SONAR_TOKEN}</sonar.token>
+<!--		    <sonar.token>${env.SONAR_TOKEN}</sonar.token>-->
 
 	</properties>
 	<dependencies>
