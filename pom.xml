@@ -36,6 +36,7 @@
 		    <sonar.projectKey>PCAS_SonarQube</sonar.projectKey>
 		    <sonar.organization>ghatgeritesh</sonar.organization>
 		    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 <!--		    <sonar.token>${env.SONAR_TOKEN}</sonar.token>-->
 
 	</properties>
