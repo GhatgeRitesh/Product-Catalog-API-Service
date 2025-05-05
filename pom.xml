@@ -33,7 +33,6 @@
 <!--			<sonar.projectKey>PCAS</sonar.projectKey> &lt;!&ndash; Choose a unique key for your project &ndash;&gt;-->
 <!--			<sonar.projectName>PCAS</sonar.projectName> &lt;!&ndash; The name of your project &ndash;&gt;-->
 <!--			<sonar.projectVersion>1.0</sonar.projectVersion> &lt;!&ndash; Version of the project &ndash;&gt;-->
-<!--		    <sonar.login>******</sonar.login>-->
 		    <sonar.projectKey>PCAS_SonarQube</sonar.projectKey>
 		    <sonar.organization>ghatgeritesh</sonar.organization>
 		    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
