@@ -6,4 +6,4 @@ SonarCloud Analysis: <br>
 <br>
 Jacoco Coverage: <br>
 
-[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=PCAS_SonarQube&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=PCAS_SonarQube)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=PCAS_SonarQube&metric=coverage)](https://sonarcloud.io/summary/new_code?id=PCAS_SonarQube)
