@@ -1,0 +1,40 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: pcas-pipeline
+  namespace: pcas
+spec:
+  workspaces:
+    - name: source
+  params:
+    - name: url
+    - name: revision
+
+  tasks:
+    - name: cleanup
+      taskRef:
+        name: clean-workspace
+      workspaces:
+        - name: source
+          workspace: source
+
+    - name: clone
+      taskRef:
+        name: clone-repo
+      params:
+        - name: url
+          value: "$(params.url)"
+        - name: revision
+          value: "$(params.revision)"
+      workspaces:
+        - name: source
+          workspace: source
+      runAfter: ["cleanup"]
+
+    - name: build-test
+      taskRef:
+        name: build-test
+      workspaces:
+        - name: source
+          workspace: source
+      runAfter: ["clone"]

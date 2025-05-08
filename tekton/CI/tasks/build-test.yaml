@@ -1,0 +1,37 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: build-test
+  namespace: pcas
+spec:
+  workspaces:
+    - name: source
+
+  steps:
+    - name: build
+      image: maven:3.9.6-eclipse-temurin-17
+      workingDir: $(workspaces.source.path)/src
+      env:
+        - name: MAVEN_CONFIG
+          value: $(workspaces.source.path)/.m2
+      script: |
+        #!/bin/sh
+        echo "Build task Started"
+        echo "$(pwd) : Current Working Directory"
+        mvn -Dmaven.repo.local=$(workspaces.source.path)/.m2 clean install -DskipTests
+        echo "Dependency Installation Success"
+        echo "$(pwd) : Current Working Directory"
+
+    - name: test
+      image: maven:3.9.6-eclipse-temurin-17
+      workingDir: $(workspaces.source.path)/src
+      env:
+        - name: MAVEN_CONFIG
+          value: $(workspaces.source.path)/.m2
+      script: |
+        #!/bin/sh
+        echo "Test And Code Coverage Running"
+        echo "$(pwd) : Current Working Directory"
+        mvn -Dmaven.repo.local=$(workspaces.source.path)/.m2 test verify
+        echo "Test And Code Coverage Done"
+        echo "$(pwd) : Current Working Directory"

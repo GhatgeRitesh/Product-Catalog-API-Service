@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  name: pcas-pr-1
+  namespace: pcas
+spec:
+  pipelineRef:
+    name: pcas-pipeline
+  params:
+    - name: url
+      value: "https://github.com/GhatgeRitesh/Product-Catalog-API-Service-CI-CD"
+    - name: revision
+      value: "main"
+  workspaces:
+    - name: source
+      PersistentVolumeClaim:
+        claimName: source

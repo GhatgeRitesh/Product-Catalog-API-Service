@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: clean-workspace
+  namespace: pcas
+spec:
+  workspaces:
+    - name: source
+
+  steps:
+    - name: cleanup
+      image: alpine
+      script: |
+        #!/bin/sh
+        rm -rf /workspace/source/*
+        

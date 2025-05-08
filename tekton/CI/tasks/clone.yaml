@@ -1,0 +1,22 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: clone-repo
+  namespace: pcas
+spec:
+  workspaces:
+    - name: source
+  params:
+    - name: url
+      description: The repository url
+      type: string
+    - name: revision
+      description: Repository branch to be cloned
+  
+  steps:
+    - name: clone
+      image: bitnami/git
+      workingDir: $(workspaces.source.path)/src
+      script: |
+        #!/bin/sh
+        git clone -b "$(params.revision)" "$(params.url)" .
