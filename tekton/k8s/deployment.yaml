@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pcas-deployment
+  namespace: pcas-cd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pcas
+  template:
+   metadata:
+     labels:
+      app: pcas
+   spec:
+     containers:
+      - name: pcas
+        image: riteshghatge5657/pcas-cicd:0.2 
+        ports:
+         - containerPort: 8090
+ 
